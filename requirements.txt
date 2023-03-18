@@ -1,4 +1,0 @@
-streamlit
-pandas
-yfinance
-streamlit.components.v1
