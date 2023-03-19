@@ -8,10 +8,10 @@ from stocknews import StockNews
 
 # Set up OpenAI API authentication
 import openai
-openai.api_key = "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"
+openai.api_key = ""
 
 # API key for Alpha Vantage
-api_key = 'ZHUFWG8L0R14FGSG'
+api_key = ''
 
 #Start definitions:
 
