@@ -5,9 +5,12 @@ import streamlit.components.v1 as components
 from alpha_vantage.timeseries import TimeSeries
 from alpha_vantage.fundamentaldata import FundamentalData
 from stocknews import StockNews
-from dotenv import load_dotenv
-load_dotenv()
 import os
+
+with open('.env') as f:
+    for line in f:
+        key, value = line.strip().split('=')
+        os.environ[key] = value
 
 # Set up OpenAI API authentication
 import openai
