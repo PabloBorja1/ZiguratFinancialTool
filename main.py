@@ -308,31 +308,45 @@ def main():
                 if st.button("Analyze Financials"):
                     if symbol:
                         # Retrieve the balance sheet data
-                        data, meta_data = fd.get_balance_sheet_annual(symbol).T
+                        data, meta_data = fd.get_balance_sheet_annual(symbol)
                         st.write('### Balance Sheet')
+                        data = data.set_index("fiscalDateEnding")
+                        data = data.T
                         # OPEN AI summary request
                         resume_balance_sheet = analyze_balance_sheet(data)
                         # Display the balance sheet data summary
                         st.write(resume_balance_sheet)
-                        st.write(data)
+                        data = data.applymap(lambda x: str(round(x/1000000, 2)) + 'm' if isinstance(x, (int, float)) else x)
+                        with st.expander("Balance Sheet"):
+                            st.write(data)
 
                         # Retrieve the cash flow data
-                        data, meta_data = fd.get_cash_flow_annual(symbol).T
+                        data, meta_data = fd.get_cash_flow_annual(symbol)
                         st.write('### Cash Flow')
+                        data = data.set_index("fiscalDateEnding")
+                        data = data.T
                         # OPEN AI summary request
                         resume_cash_flow = analyze_cash_flow(data)
                         # Display the balance sheet data summary
                         st.write(resume_cash_flow)
-                        st.write(data)
+                        numeric_cols = data.select_dtypes(include=['number']).columns
+                        data = data.applymap(lambda x: str(round(x/1000000, 2)) + 'm' if isinstance(x, (int, float)) else x)
+                        with st.expander("Cash Flow"):
+                            st.write(data)
 
                         # Retrieve the income statement data
-                        data, meta_data = fd.get_income_statement_annual(symbol).T
+                        data, meta_data = fd.get_income_statement_annual(symbol)
                         st.write('### Income Statement')
+                        data = data.set_index("fiscalDateEnding")
+                        data = data.T
                         # OPEN AI summary request
                         resume_income = analyze_income_statement(data)
                         # Display the balance sheet data summary
                         st.write(resume_income)
-                        st.write(data)
+                        numeric_cols = data.select_dtypes(include=['number']).columns
+                        data = data.applymap(lambda x: str(round(x/1000000, 2)) + 'm' if isinstance(x, (int, float)) else x)
+                        with st.expander("Income"):
+                            st.write(data)
 
                         all_financials = resume_balance_sheet + resume_cash_flow + resume_income
                         final_summary = make_summary(all_financials, symbol)
