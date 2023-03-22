@@ -308,7 +308,7 @@ def main():
                 if st.button("Analyze Financials"):
                     if symbol:
                         # Retrieve the balance sheet data
-                        data, meta_data = fd.get_balance_sheet_annual(symbol)
+                        data, meta_data = fd.get_balance_sheet_annual(symbol).T
                         st.write('### Balance Sheet')
                         # OPEN AI summary request
                         resume_balance_sheet = analyze_balance_sheet(data)
@@ -317,7 +317,7 @@ def main():
                         st.write(data)
 
                         # Retrieve the cash flow data
-                        data, meta_data = fd.get_cash_flow_annual(symbol)
+                        data, meta_data = fd.get_cash_flow_annual(symbol).T
                         st.write('### Cash Flow')
                         # OPEN AI summary request
                         resume_cash_flow = analyze_cash_flow(data)
@@ -326,7 +326,7 @@ def main():
                         st.write(data)
 
                         # Retrieve the income statement data
-                        data, meta_data = fd.get_income_statement_annual(symbol)
+                        data, meta_data = fd.get_income_statement_annual(symbol).T
                         st.write('### Income Statement')
                         # OPEN AI summary request
                         resume_income = analyze_income_statement(data)
@@ -350,7 +350,6 @@ def main():
 
                 with st.expander("Latests News"):
                     st.markdown(yahoonews.to_html(render_links=True, escape=False), unsafe_allow_html=True, )
-
 
     # If News or Fundamental Analysis is selected, display message
     else:
