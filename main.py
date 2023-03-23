@@ -382,7 +382,7 @@ def main():
                     lambda x: f'<a href="{x}" target="_blank">🖱️</a>' if x.startswith("http") else x)
 
                 # Reques for overview
-                newsurl = f'https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers={symbol}&sort=RELEVANCE&apikey={api_key}'
+                newsurl = f'https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers={symbol}&sort=LATEST&apikey={api_key}'
                 news = requests.get(newsurl)
 
                 # Display Ticker Name:
