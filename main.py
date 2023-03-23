@@ -125,6 +125,25 @@ def make_summary(variable,variable2):
 
     return analysis
 
+def analyze_news(input):
+    """
+    Analyze income data using OpenAI API and return news analysis.
+    """
+    # Call OpenAI API to analyze the income data
+    response = openai.Completion.create(
+        engine="text-davinci-003",
+        prompt=f"This is a data base of latest news of a company, use data to make an analysis about how is the commpany doing and what is going to happen in the future, end the analysis with a commentary about the overall sentiment:\n{input}\n\n",
+        max_tokens=1024,
+        n=1,
+        stop=None,
+        temperature=0.5,
+    )
+
+    # Extract the financial analysis from OpenAI API response
+    analysis = response.choices[0].text.strip()
+
+    return analysis
+
 def calculate_changes(data):
     close = data['Close']
     current_price = close.iloc[-1]
@@ -361,6 +380,25 @@ def main():
                 yahoonews = yahoonews[['title', 'relatedTickers', 'link']]
                 yahoonews['link'] = yahoonews['link'].apply(
                     lambda x: f'<a href="{x}" target="_blank">🖱️</a>' if x.startswith("http") else x)
+
+                # Reques for overview
+                newsurl = f'https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers={symbol}&sort=RELEVANCE&apikey={api_key}'
+                news = requests.get(newsurl)
+
+                # Display Ticker Name:
+                tickername = r.json()['Name']
+                st.subheader(tickername)
+
+                newslist = news.json()['feed']
+
+                newsdf = pd.DataFrame.from_dict(newslist)
+                newsdf = newsdf[['title', "summary", "overall_sentiment_label", "authors"]]
+
+                news_summary = analyze_news(newsdf)
+                st.write(news_summary)
+
+                with st.expander("News Data Base"):
+                    st.dataframe(newsdf)
 
                 with st.expander("Latests News"):
                     st.markdown(yahoonews.to_html(render_links=True, escape=False), unsafe_allow_html=True, )
