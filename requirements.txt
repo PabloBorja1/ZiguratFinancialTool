@@ -8,4 +8,4 @@ stocknews==0.9.11
 requests
 bs4
 numpy
-altair
+altair==4.0
