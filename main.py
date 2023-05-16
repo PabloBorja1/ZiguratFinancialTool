@@ -58,7 +58,7 @@ def analyze_balance_sheet(balance_sheet):
     """
     # Call OpenAI API to analyze the balance sheet data
     response = openai.Completion.create(
-        engine="gpt-3.5-turbo",
+        engine="text-davinci-003",
         prompt=f"You are a Financial Analyst, this is the balance sheet statement from a company: Make a summary and finally give me two good things and two bad things about this statement:\n{balance_sheet}\n\n",
         max_tokens=4096,
         n=1,
@@ -77,7 +77,7 @@ def analyze_cash_flow(cash_flow):
     """
     # Call OpenAI API to analyze the cash flow data
     response = openai.Completion.create(
-        engine="gpt-3.5-turbo",
+        engine="text-davinci-003",
         prompt=f"You are a Financial Analyst, this is the cash flow statement from a company: Make a summary and finally give me two good things and two bad things about this statement:\n{cash_flow}\n\n",
         max_tokens=4096,
         n=1,
@@ -96,7 +96,7 @@ def analyze_income_statement(income):
     """
     # Call OpenAI API to analyze the income data
     response = openai.Completion.create(
-        engine="gpt-3.5-turbo",
+        engine="text-davinci-003",
         prompt=f"You are a Financial Analyst, this is the income statement from a company: Make a summary and finally give me two good things and two bad things about this statement:\n{income}\n\n",
         max_tokens=4096,
         n=1,
@@ -115,7 +115,7 @@ def make_summary(variable,stock):
     """
     # Call OpenAI API to analyze the income data
     response = openai.Completion.create(
-        engine="gpt-3.5-turbo",
+        engine="text-davinci-003",
         prompt=f"You are a Financial Analyst, after reading the next financial summary of {stock}, first make an analysis on the financials of {stock}, and finally give us a comentary about the sentiment on buying or selling the stock:\n{variable}\n\n",
         max_tokens=4096,
         n=1,
@@ -134,7 +134,7 @@ def analyze_news(input):
     """
     # Call OpenAI API to analyze the income data
     response = openai.Completion.create(
-        engine="gpt-3.5-turbo",
+        engine="text-davinci-003",
         prompt=f"This is a data base of latest news of a company, use data to make an analysis about how is the commpany doing and what is going to happen in the future, end the analysis with a commentary about the overall sentiment:\n{input}\n\n",
         max_tokens=4096,
         n=1,
@@ -153,7 +153,7 @@ def analyze_insider(input):
     """
     # Call OpenAI API to analyze the income data
     response = openai.Completion.create(
-        engine="gpt-3.5-turbo",
+        engine="text-davinci-003",
         prompt=f"You are a top Financial Analyst, this is the information of insider trading from company, first: use this information to make an analysis about what could be happening in the company, and finally end with a commentary about the overall sentiment of the insiders:\n{input}\n\n",
         max_tokens=4096,
         n=1,
