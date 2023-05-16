@@ -59,7 +59,7 @@ def analyze_balance_sheet(balance_sheet):
     # Call OpenAI API to analyze the balance sheet data
     response = openai.Completion.create(
         engine="text-davinci-003",
-        prompt=f"You are a Financial Analyst, this is the balance sheet from a company, first make an analysis about the company based in this data, and finally give us two good things and two bad things about this company based in the statement:\n{balance_sheet}\n\n",
+        prompt=f"You are a Financial Analyst, this is the balance sheet statement from a company: Make a summary and finally give me two good things and two bad things about this statement:\n{balance_sheet}\n\n",
         max_tokens=1024,
         n=1,
         stop=None,
@@ -78,7 +78,7 @@ def analyze_cash_flow(cash_flow):
     # Call OpenAI API to analyze the cash flow data
     response = openai.Completion.create(
         engine="text-davinci-003",
-        prompt=f"You are a Financial Analyst, this is the cash flow statement from a company, first make an analysis about the company based in this data, and finally give us two good things and two bad things about this company based in the statement:\n{cash_flow}\n\n",
+        prompt=f"You are a Financial Analyst, this is the cash flow statement from a company: Make a summary and finally give me two good things and two bad things about this statement:\n{cash_flow}\n\n",
         max_tokens=1024,
         n=1,
         stop=None,
@@ -97,7 +97,7 @@ def analyze_income_statement(income):
     # Call OpenAI API to analyze the income data
     response = openai.Completion.create(
         engine="text-davinci-003",
-        prompt=f"You are a Top Financial Analyst, this is the income statement from a company, first make an analysis about the company based in this data, and finally give us two good things and two bad things about this company based in the statement:\n{income}\n\n",
+        prompt=f"You are a Financial Analyst, this is the income statement from a company: Make a summary and finally give me two good things and two bad things about this statement:\n{income}\n\n",
         max_tokens=1024,
         n=1,
         stop=None,
@@ -116,7 +116,7 @@ def make_summary(variable,stock):
     # Call OpenAI API to analyze the income data
     response = openai.Completion.create(
         engine="text-davinci-003",
-        prompt=f"You are a Financial Analyst, after reading the next financial summary of {stock}, first make an analysys on the financials of {stock}, and finally give us a comentary about the sentiment on buying or selling the stock:\n{variable}\n\n",
+        prompt=f"You are a Financial Analyst, after reading the next financial summary of {stock}, first make an analysis on the financials of {stock}, and finally give us a comentary about the sentiment on buying or selling the stock:\n{variable}\n\n",
         max_tokens=1024,
         n=1,
         stop=None,
