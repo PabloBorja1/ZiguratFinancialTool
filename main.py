@@ -130,8 +130,8 @@ def make_summary(variable,stock):
         model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": "You are a Financial Analyst."},
-            {"role": "user", "content": f"After reading the next financial summary of \n{variable}\n\n"},
-            {"role": "user", "content": f"Make an analysis on the financials of {stock},and finally give us a comentary about the sentiment on buying or selling the stock"},
+            {"role": "user", "content": f"This is a financial summary of {stock}:\n{variable}\n\n"},
+            {"role": "user", "content": f"Based on this suymmary, make an analysis on the financials of {stock},and finally give us a comentary about the sentiment on buying or selling the stock"},
             ],
         max_tokens=1024,
         n=1,
