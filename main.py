@@ -57,17 +57,21 @@ def analyze_balance_sheet(balance_sheet):
     Analyze balance sheet data using OpenAI API and return financial analysis.
     """
     # Call OpenAI API to analyze the balance sheet data
-    response = openai.Completion.create(
-        engine="text-davinci-003",
-        prompt=f"You are a Financial Analyst, this is the balance sheet statement from a company: Make a summary and finally give me two good things and two bad things about this statement:\n{balance_sheet}\n\n",
-        max_tokens=4096,
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+                {"role": "system", "content": "You are a Financial Analyst."},
+                {"role": "user", "content": f"This is the Balance Sheet from a company:\n{balance_sheet}"},
+                {"role": "user", "content": "Make a summary and finally give me two good things and two bad things about this statement:"},
+        ],
+        max_tokens=1024,
         n=1,
         stop=None,
         temperature=0.5,
     )
 
     # Extract the financial analysis from OpenAI API response
-    analysis = response.choices[0].text
+    analysis = response.choices[0].message['content']
 
     return analysis
 
@@ -76,17 +80,21 @@ def analyze_cash_flow(cash_flow):
     Analyze cash flow data using OpenAI API and return financial analysis.
     """
     # Call OpenAI API to analyze the cash flow data
-    response = openai.Completion.create(
-        engine="text-davinci-003",
-        prompt=f"You are a Financial Analyst, this is the cash flow statement from a company: Make a summary and finally give me two good things and two bad things about this statement:\n{cash_flow}\n\n",
-        max_tokens=4096,
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a Financial Analyst."},
+            {"role": "user", "content": f"This is the cash flow statement from a company:\n{cash_flow}"},
+            {"role": "user", "content": "Make a summary and finally give me two good things and two bad things about this statement:"},
+        ],
+        max_tokens=1024,
         n=1,
         stop=None,
         temperature=0.5,
     )
 
     # Extract the financial analysis from OpenAI API response
-    analysis = response.choices[0].text
+    analysis = response.choices[0].message['content']
 
     return analysis
 
@@ -95,17 +103,21 @@ def analyze_income_statement(income):
     Analyze income data using OpenAI API and return financial analysis.
     """
     # Call OpenAI API to analyze the income data
-    response = openai.Completion.create(
-        engine="text-davinci-003",
-        prompt=f"You are a Financial Analyst, this is the income statement from a company: Make a summary and finally give me two good things and two bad things about this statement:\n{income}\n\n",
-        max_tokens=4096,
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+                {"role": "system", "content": "You are a Financial Analyst."},
+                {"role": "user", "content": f"This is the cash Income Statement from a company:\n{income}"},
+                {"role": "user", "content": "Make a summary and finally give me two good things and two bad things about this statement:"},
+        ],
+        max_tokens=1024,
         n=1,
         stop=None,
         temperature=0.5,
     )
 
     # Extract the financial analysis from OpenAI API response
-    analysis = response.choices[0].text
+    analysis = response.choices[0].message['content']
 
     return analysis
 
@@ -114,17 +126,21 @@ def make_summary(variable,stock):
     Analyze  data using OpenAI API and return summary financial analysis.
     """
     # Call OpenAI API to analyze the income data
-    response = openai.Completion.create(
-        engine="text-davinci-003",
-        prompt=f"You are a Financial Analyst, after reading the next financial summary of {stock}, first make an analysis on the financials of {stock}, and finally give us a comentary about the sentiment on buying or selling the stock:\n{variable}\n\n",
-        max_tokens=4096,
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a Financial Analyst."},
+            {"role": "user", "content": f"After reading the next financial summary of \n{variable}\n\n"},
+            {"role": "user", "content": f"Make an analysis on the financials of {stock},and finally give us a comentary about the sentiment on buying or selling the stock"},
+            ],
+        max_tokens=1024,
         n=1,
         stop=None,
         temperature=0.5,
-    )
+        )
 
     # Extract the financial analysis from OpenAI API response
-    analysis = response.choices[0].text
+    analysis = response.choices[0].message['content']
 
     return analysis
 
@@ -133,17 +149,21 @@ def analyze_news(input):
     Analyze income data using OpenAI API and return news analysis.
     """
     # Call OpenAI API to analyze the income data
-    response = openai.Completion.create(
-        engine="text-davinci-003",
-        prompt=f"This is a data base of latest news of a company, use data to make an analysis about how is the commpany doing and what is going to happen in the future, end the analysis with a commentary about the overall sentiment:\n{input}\n\n",
-        max_tokens=4096,
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a Financial Analyst."},
+            {"role": "user", "content": f"This is a data base of latest news of a company \n{input}\n\n"},
+            {"role": "user", "content": f"Use data to make an analysis about how is the commpany doing and what is going to happen in the future, end the analysis with a commentary about the overall sentiment"},
+            ],
+        max_tokens=1024,
         n=1,
         stop=None,
         temperature=0.5,
-    )
+        )
 
     # Extract the financial analysis from OpenAI API response
-    analysis = response.choices[0].text.strip()
+    analysis = response.choices[0].message['content']
 
     return analysis
 
@@ -152,19 +172,21 @@ def analyze_insider(input):
     Analyze income data using OpenAI API and return news analysis.
     """
     # Call OpenAI API to analyze the income data
-    response = openai.Completion.create(
-        engine="text-davinci-003",
-        prompt=f"You are a top Financial Analyst, this is the information of insider trading from company, first: use this information to make an analysis about what could be happening in the company, and finally end with a commentary about the overall sentiment of the insiders:\n{input}\n\n",
-        max_tokens=4096,
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a Financial Analyst."},
+            {"role": "user", "content": f"This is the information of insider trading from company:\n{input}\n\n"},
+            {"role": "user", "content": f"Use this information to make an analysis about what could be happening in the company, and finally end with a commentary about the overall sentiment of the insiders"},
+            ],
+        max_tokens=1024,
         n=1,
         stop=None,
         temperature=0.5,
-    )
+        )
 
     # Extract the financial analysis from OpenAI API response
-    analysis = response.choices[0].text.strip()
-
-    return analysis
+    analysis = response.choices[0].message['content']
 
 def insider_trading_ticker(ti):
     # Define the URL of the page to scrape
